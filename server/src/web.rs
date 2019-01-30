@@ -20,6 +20,7 @@ use crate::{
     snapshot_reconciler::InstanceChanges,
     visualize::{VisualizeRbxSession, VisualizeImfs, graphviz_to_svg},
     rbx_session::{MetadataPerInstance},
+    ui,
 };
 
 static HOME_CONTENT: &str = include_str!("../assets/index.html");
@@ -98,7 +99,7 @@ impl Server {
 
         router!(request,
             (GET) (/) => {
-                self.handle_home()
+                Response::html(ui::render(&self.live_session))
             },
             (GET) (/api/rojo) => {
                 self.handle_api_rojo()
